@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Members</title>
+
+    <!-- Bootstrap & Google Fonts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/images/plans.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            color: white;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        h2 {
+            color: #00bfff;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 0px 0px 5px #00bfff, 0px 0px 10px #8a2be2;
+            border-bottom: 3px solid rgba(0, 191, 255, 0.8);
+            padding-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: white;
+        }
+        thead {
+            background-color: #007bff;
+            color: white;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+            transform: scale(1.02);
+        }
+        .btn-delete {
+            display: block;
+            width: 120px;
+            margin: 10px auto;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff6600, #ff3300);
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-delete:hover {
+            background: linear-gradient(45deg, #ff3300, #cc0000);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" th:if="${bdatas != null and !#lists.isEmpty(bdatas)}">
+        <h2>Basic Plan Members</h2>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Month of Joining</th>
+					<th>In Case of Violation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="member : ${bdatas}">
+                    <td th:text="${member.id}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.phonenumber}"></td>
+                    <td th:text="${member.mail}"></td>
+                    <td th:text="${member.monthjoin}"></td>
+                    <td>
+                        <form th:action="@{/basicdeleteMember}" method="post">
+                            <input type="hidden" name="id" th:value="${member.id}" />
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container" th:if="${pdatas != null and !#lists.isEmpty(pdatas)}">
+        <h2>Premium Plan Members</h2>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Month of Joining</th>
+                    <th>In Case of Violation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="member : ${pdatas}">
+                    <td th:text="${member.memberid}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.phonenumber}"></td>
+                    <td th:text="${member.mail}"></td>
+                    <td th:text="${member.monthjoin}"></td>
+                    <td>
+                        <form th:action="@{/premiumdeleteMember}" method="post">
+                            <input type="hidden" name="memberid" th:value="${member.memberid}" />
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container" th:if="${edatas != null and !#lists.isEmpty(edatas)}">
+        <h2>Elite Plan Members</h2>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Month of Joining</th>
+					<th>In Case of Violation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="member : ${edatas}">
+                    <td th:text="${member.memberid}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.phonenumber}"></td>
+                    <td th:text="${member.mail}"></td>
+                    <td th:text="${member.monthjoin}"></td>
+                    <td>
+                        <form th:action="@{/elitedeleteMember}" method="post">
+                            <input type="hidden" name="memberid" th:value="${member.memberid}" />
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

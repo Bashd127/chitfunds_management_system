@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GTS Chitfunds & Co</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <style>
+        /* General Styles */
+		body {
+		    background: url('/images/gts.jpg') no-repeat center center fixed;
+		    background-size: cover; /* Ensures image covers full screen */
+		    font-family: Arial, sans-serif;
+		    color: white;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    justify-content: center;
+		    height: 100vh;
+		    margin: 0;
+		}
+
+
+		/* Header Section */
+		.header-container {
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    text-align: center;
+		    margin-bottom: 20px;
+		    background: rgba(0, 0, 0, 0.6); /* Dark overlay for better visibility */
+		    padding: 15px;
+		    border-radius: 8px;
+		}
+
+		.company-title {
+		    font-family: 'Playfair Display', serif;
+		    font-size: 2.5rem;
+		    color: rgba(255, 255, 255, 0.95); /* Brighter text for clarity */
+		    margin-bottom: 10px;
+		}
+
+		.company-description {
+		    font-size: 1.2rem;
+		    color: rgba(255, 255, 255, 0.85); /* Slightly dimmer for contrast */
+		}
+
+
+        /* Error Message */
+        .error-container {
+            text-align: center;
+            width: 50%;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Login Form */
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .login-container {
+            width: 100%;
+        }
+
+        /* Form Elements */
+        .form-label {
+            font-weight: bold;
+            color: white;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-success {
+            background: #28a745;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        /* Links */
+        .forgot-password, .new-user {
+            color: white;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover, .new-user:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header-container">
+        <div class="company-title">
+            <h2>Welcome to GTS Chitfunds & Co</h2>
+            <p class="company-description">Your trusted partner in financial security and growth.</p>
+        </div>
+
+        <!-- Error Message (Only displayed if there is an error) -->
+        <div th:if="${error}" class="error-container">
+            <p th:text="${error}"></p>
+        </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="form-container">
+        <div class="login-container col-md-6">
+            <form action="/planslist" method="POST">
+                <div class="mb-3">
+                    <label for="memberId" class="form-label">Member ID</label>
+                    <input type="text" class="form-control" id="memberId" name="memberId" required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="/forgotpassword" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <div class="text-center mt-2">
+                <a href="/signup" class="new-user">
+                    <button class="btn btn-success w-100">New User? Sign Up</button>
+                </a>
+            </div>
+
+            <form action="/gplans">
+                <div class="text-center mt-2">
+                    <button class="btn btn-secondary w-100">Sign in as Guest</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

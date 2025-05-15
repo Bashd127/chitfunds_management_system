@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Results</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #222;
+            color: white;
+            text-align: center;
+        }
+        
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 5px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        h2 {
+            color: #FFD700;
+            text-transform: uppercase;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background: linear-gradient(45deg, #ffcc00, #ff9900);
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        tbody tr {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        tbody tr.winner {
+            background: #32CD32 !important; /* Solid Green */
+            color: white;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(45deg, #ff6600, #ff3300);
+            border-radius: 8px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #ff3300, #cc0000);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Auction Winners</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Plan Name</th>
+                    <th>Winner ID</th>
+                </tr>
+            </thead>
+            <tbody id="auction-winner-table">
+                <!-- Data will be inserted here dynamically -->
+            </tbody>
+        </table>
+
+        <a href="/home" class="back-btn">Back to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/auction/get-winners')
+                .then(response => response.json())
+                .then(data => {
+                    let tableBody = document.getElementById("auction-winner-table");
+                    tableBody.innerHTML = ""; // Clear existing rows
+
+                    data.forEach(winner => {
+                        let row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${winner.planName}</td>
+                            <td>${winner.winnerId}</td>
+                        `;
+                        row.classList.add("winner"); // Apply green background
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error("Error fetching winners:", error));
+        });
+    </script>
+
+</body>
+</html>

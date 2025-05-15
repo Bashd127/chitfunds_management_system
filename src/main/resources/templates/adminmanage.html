@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    
+	<style>
+	       body {
+	           background-image: url('/images/adminbg.jpg'); /* Replace with your image path */
+	           background-size: cover;
+	           background-position: center;
+	           background-attachment: fixed;
+	           color: white;
+	           font-family: 'Raleway', sans-serif;
+	       }
+	       .container {
+	           background: rgba(0, 0, 0, 0.8);
+	           padding: 20px;
+	           border-radius: 10px;
+	           margin-top: 20px;
+	           box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+	       }
+		   .btn-update-link {
+		       display: inline-block;
+		       background: linear-gradient(45deg, #ff6600, #ff3300); /* Attractive gradient */
+		       color: white;
+		       padding: 8px 15px;
+		       border-radius: 8px;
+		       font-weight: bold;
+		       text-decoration: none;
+		       transition: all 0.3s ease-in-out;
+		       border: none;
+		       text-align: center;
+		   }
+
+		   .btn-update-link:hover {
+		       background: linear-gradient(45deg, #ff3300, #cc0000); /* Darker gradient on hover */
+		       transform: scale(1.05); /* Slight scaling effect */
+		       box-shadow: 0 4px 10px rgba(255, 102, 0, 0.5); /* Glow effect */
+		   }
+		   .btn-delete-link {
+		   		       display: inline-block;
+		   		       background: linear-gradient(45deg, #ff6600, #ff3300); /* Attractive gradient */
+		   		       color: white;
+		   		       padding: 8px 15px;
+		   		       border-radius: 8px;
+		   		       font-weight: bold;
+		   		       text-decoration: none;
+		   		       transition: all 0.3s ease-in-out;
+		   		       border: none;
+		   		       text-align: center;
+		   		   }
+
+		   		   .btn-delete-link:hover {
+		   		       background: linear-gradient(45deg, #ff3300, #cc0000); /* Darker gradient on hover */
+		   		       transform: scale(1.05); /* Slight scaling effect */
+		   		       box-shadow: 0 4px 10px rgba(255, 102, 0, 0.5); /* Glow effect */
+		   		   }
+
+		   .logout-btn {
+		       position: absolute;
+		       top: 10px;
+		       right: 0px; /* Moves it to the left side */
+		       background: red;
+		       color: white;
+		       padding: 8px 15px;
+		       border-radius: 5px;
+		       text-decoration: none;
+		       font-weight: bold;
+		       transition: background 0.3s ease-in-out;
+		   }
+
+		   .logout-btn:hover {
+		       background: darkred;
+		   }
+
+	       h2.heading {
+	           font-family: 'Orbitron', sans-serif;
+	           font-size: 2rem;
+	           text-align: center;
+	           text-transform: uppercase;
+	           letter-spacing: 2px;
+	           text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+	       }
+	       h4 {
+	           font-size: 1.5rem;
+	           font-weight: 700;
+	           text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+	       }
+	       .nav-tabs .nav-link {
+	           font-weight: bold;
+	           color: white;
+	           border: none;
+	       }
+	       .nav-tabs .nav-link.active {
+	           background: #ffcc00;
+	           color: black;
+	           border-radius: 5px;
+	       }
+	       .table {
+	           background: rgba(255, 255, 255, 0.1);
+	       }
+		   .auction-btn-container {
+		       display: flex;
+		       justify-content: center;
+		       margin-top: 20px;
+		   }
+
+		   .auction-btn {
+		       background: linear-gradient(45deg, #28a745, #218838); /* Green gradient */
+		       color: white;
+		       padding: 10px 20px;
+		       font-size: 1rem;
+		       font-weight: bold;
+		       border-radius: 8px;
+		       text-decoration: none;
+		       transition: all 0.3s ease-in-out;
+		       border: none;
+		       display: inline-block;
+		       text-align: center;
+		   }
+
+		   .auction-btn:hover {
+		       background: linear-gradient(45deg, #218838, #1e7e34); /* Darker green on hover */
+		       transform: scale(1.05);
+		       box-shadow: 0 4px 10px rgba(40, 167, 69, 0.5);
+		   }
+		    
+
+
+	   </style>
+
+    </style>
+</head>
+<body>
+	<a href="/adlogin" class="logout-btn">Logout</a>
+
+    <div class="container mt-4">
+        <h2 class="heading">GTS Chitfunds & CO</h2>
+        
+        <ul class="nav nav-tabs" id="adminTabs">
+            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#users">Users</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#basicPlan">Basic Plan</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#premiumPlan">Premium Plan</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#elitePlan">Elite Plan</a></li>
+		 
+			</ul>
+         </ul>
+
+		<div class="tab-content mt-3">
+		    <!-- Users Section -->
+		    <div id="users" class="tab-pane fade show active">
+		        <h4>Users</h4>
+		        <table class="table table-dark table-hover text-center">
+		            <thead>
+		                <tr>
+		                    <th>ID</th>
+		                    <th>Name</th>
+		                    <th>Phone</th>
+		                    <th>Email</th>
+ 		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr th:each="user : ${users}">
+		                    <td th:text="${user.memberid}"></td>
+		                    <td><input type="text" th:value="${user.name}" id="name-[[${user.id}]]" disabled></td>
+		                    <td th:text="${user.phonenumber}"></td>
+		                    <td><input type="text" th:value="${user.mail}" id="mail-[[${user.id}]]" disabled></td>
+		                     
+		                </tr>
+		            </tbody>
+		        </table>
+		    </div>
+
+		    <!-- Basic Plan Section -->
+		    <div id="basicPlan" class="tab-pane fade">
+		        <h4>Basic Plan</h4>
+		        <table class="table table-dark table-hover text-center">
+		            <thead>
+		                <tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Join Month</th>
+							<th>Aadhar Front</th>
+							<th>Aadhar Back</th>
+						    <th>PAN Front</th>
+						    <th>PAN Back</th>
+							<th>If Required</th>
+							<th>In Case of Violation</th>
+
+  							
+						</tr>
+		            </thead>
+		            <tbody>
+		                <tr th:each="plan : ${basicPlans}">
+		                    <td th:text="${plan.memberid}"></td>
+		                    <td><input type="text" th:value="${plan.name}" id="name-basic-[[${plan.id}]]" disabled></td>
+		                    <td th:text="${plan.phonenumber}"></td>
+		                    <td><input type="text" th:value="${plan.mail}" id="mail-basic-[[${plan.id}]]" disabled></td>
+		                    <td th:text="${plan.monthjoin}"></td>
+ 
+							<!-- Display images with minimal size -->
+							              <td>
+							                  <img th:src="@{${plan.af}}" alt="Aadhar Front" style="width: 80px; height: auto;">
+							              </td>
+							              <td>
+							                  <img th:src="@{${plan.ab}}" alt="Aadhar Back" style="width: 80px; height: auto;">
+							              </td>
+							              <td>
+							                  <img th:src="@{${plan.pf}}" alt="PAN Front" style="width: 80px; height: auto;">
+							              </td>
+							              <td>
+							                  <img th:src="@{${plan.pb}}" alt="PAN Back" style="width: 80px; height: auto;">
+							              </td>
+										  <td><a th:href="@{/reupdate/{id}(id=${plan.memberid})}" class="btn-update-link">Update</a></td>
+										  <td><a th:href="@{/bdelete/{id}(id=${plan.memberid})}" class="btn-delete-link">Delete</a></td>
+
+
+ 
+		                    
+		                </tr>
+		            </tbody>
+		        </table>
+				<div class="auction-btn-container">
+				    <a href="/abauction" class="auction-btn">Auction</a>
+				</div>
+ 
+		    </div>
+
+		    <!-- Premium Plan Section -->
+		    <div id="premiumPlan" class="tab-pane fade">
+		        <h4>Premium Plan</h4>
+		        <table class="table table-dark table-hover text-center">
+		            <thead>
+						<tr>
+												<th>ID</th>
+												<th>Name</th>
+												<th>Phone</th>
+												<th>Email</th>
+												<th>Join Month</th>
+												<th>Aadhar Front</th>
+												<th>Aadhar Back</th>
+											    <th>PAN Front</th>
+											    <th>PAN Back</th>
+												<th>If Required</th>
+												<th>In Case of Violation</th>
+
+
+ 
+ 												
+											</tr>		            </thead>
+		            <tbody>
+		                <tr th:each="plan : ${premiumPlans}">
+		                    <td th:text="${plan.memberid}"></td>
+		                    <td><input type="text" th:value="${plan.name}" id="name-premium-[[${plan.id}]]" disabled></td>
+		                    <td th:text="${plan.phonenumber}"></td>
+		                    <td><input type="text" th:value="${plan.mail}" id="mail-premium-[[${plan.id}]]" disabled></td>
+		                    <td th:text="${plan.monthjoin}"></td>
+ 
+							<!-- Display images with minimal size -->
+							<td>
+													                  <img th:src="@{${plan.af}}" alt="Aadhar Front" style="width: 80px; height: auto;">
+													              </td>
+													              <td>
+													                  <img th:src="@{${plan.ab}}" alt="Aadhar Back" style="width: 80px; height: auto;">
+													              </td>
+													              <td>
+													                  <img th:src="@{${plan.pf}}" alt="PAN Front" style="width: 80px; height: auto;">
+													              </td>
+													              <td>
+													                  <img th:src="@{${plan.pb}}" alt="PAN Back" style="width: 80px; height: auto;">
+													              </td>
+										  <td><a th:href="@{/reupdates/{id}(id=${plan.memberid})}" class="btn-update-link">Update</a></td>
+										  <td><a th:href="@{/pdelete/{id}(id=${plan.memberid})}" class="btn-delete-link">Delete</a></td>
+
+
+ 
+		                     
+		                </tr>
+		            </tbody>
+		        </table>
+				<div class="auction-btn-container">
+				    <a href="/apauction" class="auction-btn">Auction</a>
+				</div>
+
+ 
+		    </div>
+
+		    <!-- Elite Plan Section -->
+		    <div id="elitePlan" class="tab-pane fade">
+		        <h4>Elite Plan</h4>
+		        <table class="table table-dark table-hover text-center">
+		            <thead>
+						<tr>
+												<th>ID</th>
+												<th>Name</th>
+												<th>Phone</th>
+												<th>Email</th>
+												<th>Join Month</th>
+												<th>Aadhar Front</th>
+												<th>Aadhar Back</th>
+											    <th>PAN Front</th>
+											    <th>PAN Back</th>
+												<th>If Required</th>
+												<th>In Case of Violation</th>
+
+ 
+ 												
+											</tr>		            
+										</thead>
+		            <tbody>
+		                <tr th:each="plan : ${elitePlans}">
+		                    <td th:text="${plan.memberid}"></td>
+		                    <td><input type="text" th:value="${plan.name}" id="name-elite-[[${plan.id}]]" disabled></td>
+		                    <td th:text="${plan.phonenumber}"></td>
+		                    <td><input type="text" th:value="${plan.mail}" id="mail-elite-[[${plan.id}]]" disabled></td>
+		                    <td th:text="${plan.monthjoin}"></td>
+							<!-- Display images with minimal size -->
+							<td>
+								<img th:src="@{${plan.af}}" alt="Aadhar Front" style="width: 80px; height: auto;">
+							</td>
+							<td>
+							 	<img th:src="@{${plan.ab}}" alt="Aadhar Back" style="width: 80px; height: auto;">
+							</td>
+							<td>
+								<img th:src="@{${plan.pf}}" alt="PAN Front" style="width: 80px; height: auto;">
+							</td>
+							<td>
+								 <img th:src="@{${plan.pb}}" alt="PAN Back" style="width: 80px; height: auto;">
+							</td>
+										  <td><a th:href="@{/reupdatess/{id}(id=${plan.memberid})}" class="btn-update-link">Update</a></td>
+										  <td><a th:href="@{/edelete/{id}(id=${plan.memberid})}" class="btn-delete-link">Delete</a></td>
+
+
+ 
+		                     
+		                </tr>
+		            </tbody>
+		        </table>
+				<div class="auction-btn-container">
+				    <a href="/aeauction" class="auction-btn">Auction</a>
+				</div>
+
+ 				
+		    </div>
+
+			
+			</div>
+			</div>
+
+
+     
+
+	 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	 
+	 
+    
+</body>
+</html>
